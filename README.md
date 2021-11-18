@@ -1,8 +1,6 @@
 # MediatR.Extensions.Abstractions
 
-This repository contains abstractions that can be used to build [MediatR](https://github.com/jbogard/MediatR) extensions, i.e. a pipeline behavior or request pre/post processor.
-
-The package contains the following abstract base classes:
+This repository contains abstractions that can be used to build [MediatR](https://github.com/jbogard/MediatR) extensions, i.e. pipeline behaviors and request pre/post processors:
 
 - [RequestBehaviorBase][1]: implements `IPipelineBehavior<TRequest, TResponse>` and takes an `ICommand<TRequest>`
 - [ResponseBehaviorBase][2]: implements `IPipelineBehavior<TRequest, TResponse>` and takes an `ICommand<TResponse>`
@@ -10,8 +8,8 @@ The package contains the following abstract base classes:
 - [ResponseProcessorBase][4]: implements `IRequestPostProcessor<TRequest, TResponse>` and takes an `ICommand<TResponse>`
 
 There are three steps to build an extension:
-1. create a generic command by implementing [ICommand&lt;TMessage&gt;][0]
-2. extend one or more of the base classes described above and provide constructors to inject your command
+1. create a generic command by implementing [ICommand&lt;TMessage&gt;][0] - `TMessage` is a MediatR request or response
+2. extend the base classes described above and provide constructors to inject the command created above
 3. if the command requires options, create an option class and inject it in the command constructor
 
 An example is included with the tests project:

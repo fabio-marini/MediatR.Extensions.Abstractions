@@ -5,7 +5,12 @@ VisualStudioVersion = 16.0.31321.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediatR.Extensions.Abstractions", "MediatR.Extensions.Abstractions\MediatR.Extensions.Abstractions.csproj", "{8206164E-A526-4DD1-BAD4-692328039398}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediatR.Extensions.Abstractions.Tests", "MediatR.Extensions.Abstractions.Tests\MediatR.Extensions.Abstractions.Tests.csproj", "{7F4E689F-E69D-427D-A77D-8C534026F3BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediatR.Extensions.Abstractions.Tests", "MediatR.Extensions.Abstractions.Tests\MediatR.Extensions.Abstractions.Tests.csproj", "{7F4E689F-E69D-427D-A77D-8C534026F3BB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{053437A4-CF67-4BB1-8272-A0295BB07E89}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

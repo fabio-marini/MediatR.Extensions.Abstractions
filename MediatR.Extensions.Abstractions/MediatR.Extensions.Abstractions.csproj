@@ -1,11 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Authors>Fabio Marini</Authors>
+    <Description>Abstractions that can be used to build MediatR extensions, i.e. pipeline behaviors and request pre/post processors</Description>
+    <PackageVersion>1.0.0</PackageVersion>
+    <PackageProjectUrl>https://github.com/fabio-marini/MediatR.Extensions.Abstractions</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/fabio-marini/MediatR.Extensions.Abstractions</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+    <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.20" />
   </ItemGroup>
 
