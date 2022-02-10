@@ -12,6 +12,12 @@ There are three steps to build an extension:
 2. extend the base classes described above and provide constructors to inject the command created above
 3. if the command requires options, create an option class and inject it in the command constructor
 
+:warning: The abstractions are designed to allow execution of the pipeline to continue in case of certain errors. This means that:
+- exceptions raised by execution of the generic command are caught and logged, but not rethrown
+- all other exceptions, i.e. those raised by cancellation and other components further down the chain, are not caught and will bubble up the stack
+
+Keep this in mind if your extension fails without an exception! The error details will be in the logs...
+
 An example is included with the tests project:
 1. [WriteJsonCommand][5] implements ICommand&lt;TMessage&gt;
 2. [WriteJsonRequestBehavior][6], [WriteJsonResponseBehavior][7], [WriteJsonRequestProcessor][8] and [WriteJsonResponseProcessor][9] extend the base classes and provide constructors to inject [WriteJsonCommand][5]
