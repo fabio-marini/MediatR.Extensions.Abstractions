@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Command Options</Title>
+      <Description>Generates the skeleton for an extension options class</Description>
+      <Author>Fabio Marini</Author>
+      <SnippetTypes>
+        <SnippetType>MediatR Extensions</SnippetType>
+      </SnippetTypes>
+      <Shortcut>opt</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>CommandName</ID>
+          <ToolTip>The name of the command class without the 'Command' suffix</ToolTip>
+          <Default>MyCommand</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp">
+        <![CDATA[
+public class $CommandName$Options<TMessage>
+{
+    public virtual bool IsEnabled { get; set; }
+}]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

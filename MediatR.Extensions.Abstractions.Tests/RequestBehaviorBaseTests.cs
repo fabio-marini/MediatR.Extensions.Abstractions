@@ -1,6 +1,8 @@
 ﻿using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Options;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -11,6 +13,89 @@ using Xunit;
 
 namespace MediatR.Extensions.Abstractions.Tests
 {
+
+    public class ReadJsonOptions<TMessage>
+    {
+        public virtual bool IsEnabled { get; set; }
+    }
+
+    public class ReadJsonCommand<TMessage> : ICommand<TMessage>
+    {
+        private readonly IOptions<ReadJsonOptions<TMessage>> opt;
+        private readonly PipelineContext ctx;
+        private readonly ILogger log;
+
+        public ReadJsonCommand(IOptions<ReadJsonOptions<TMessage>> opt, PipelineContext ctx = null, ILogger log = null)
+        {
+            this.opt = opt;
+            this.ctx = ctx;
+            this.log = log ?? NullLogger.Instance;
+        }
+
+        public virtual Task ExecuteAsync(TMessage message, CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            if (opt.Value.IsEnabled == false)
+            {
+                log.LogDebug("Command {Command} is not enabled, returning", this.GetType().Name);
+
+                return Task.CompletedTask;
+            }
+
+            try
+            {
+                throw new NotImplementedException("TODO!");
+
+                log.LogDebug("Command {Command} completed", this.GetType().Name);
+            }
+            catch (Exception ex)
+            {
+                log.LogDebug(ex, "Command {Command} failed with message: {Message}", this.GetType().Name, ex.Message);
+
+                throw new CommandException($"Command {this.GetType().Name} failed, see inner exception for details", ex);
+            }
+
+            return Task.CompletedTask;
+        }
+    }
+
+    public class ReadJsonRequestBehavior<TRequest> : RequestBehaviorBase<TRequest, Unit> where TRequest : IRequest<Unit>
+    {
+        public ReadJsonRequestBehavior(ReadJsonCommand<TRequest> cmd, PipelineContext ctx = null, ILogger log = null)
+            : base(cmd, ctx, log)
+        {
+        }
+    }
+
+    public class ReadJsonRequestBehavior<TRequest, TResponse> : RequestBehaviorBase<TRequest, TResponse> where TRequest : IRequest<TResponse>
+    {
+        public ReadJsonRequestBehavior(ReadJsonCommand<TRequest> cmd, PipelineContext ctx = null, ILogger log = null)
+            : base(cmd, ctx, log)
+        {
+        }
+    }
+
+    public class ReadJsonRequestProcessor<TRequest> : RequestProcessorBase<TRequest>
+    {
+        public ReadJsonRequestProcessor(ReadJsonCommand<TRequest> cmd, PipelineContext ctx = null, ILogger log = null) : base(cmd, ctx, log)
+        {
+        }
+    }
+
+    public class ReadJsonResponseBehavior<TRequest, TResponse> : ResponseBehaviorBase<TRequest, TResponse> where TRequest : IRequest<TResponse>
+    {
+        public ReadJsonResponseBehavior(ReadJsonCommand<TResponse> cmd, PipelineContext ctx = null, ILogger log = null) : base(cmd, ctx, log)
+        {
+        }
+    }
+
+    public class ReadJsonResponseProcessor<TRequest, TResponse> : ResponseProcessorBase<TRequest, TResponse> where TRequest : IRequest<TResponse>
+    {
+        public ReadJsonResponseProcessor(ReadJsonCommand<TResponse> cmd, PipelineContext ctx = null, ILogger log = null) : base(cmd, ctx, log)
+        {
+        }
+    }
     public class RequestBehaviorBaseTests
     {
         private readonly IServiceProvider svc;

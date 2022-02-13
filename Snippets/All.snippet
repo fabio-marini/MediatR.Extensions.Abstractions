@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Command, Options and Extensions</Title>
+      <Description>Generates the skeleton for all extension classes</Description>
+      <Author>Fabio Marini</Author>
+      <SnippetTypes>
+        <SnippetType>MediatR Extensions</SnippetType>
+      </SnippetTypes>
+      <Shortcut>all</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>CommandName</ID>
+          <ToolTip>The name of the command class without the 'Command' suffix</ToolTip>
+          <Default>MyCommand</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp">
+        <![CDATA[
+public class $CommandName$Options<TMessage>
+{
+    public virtual bool IsEnabled { get; set; }
+}
+
+public class $CommandName$Command<TMessage> : ICommand<TMessage>
+{
+    private readonly IOptions<$CommandName$Options<TMessage>> opt;
+    private readonly PipelineContext ctx;
+    private readonly ILogger log;
+
+    public $CommandName$Command(IOptions<$CommandName$Options<TMessage>> opt, PipelineContext ctx = null, ILogger log = null)
+    {
+        this.opt = opt;
+        this.ctx = ctx;
+        this.log = log ?? NullLogger.Instance;
+    }
+
+    public virtual Task ExecuteAsync(TMessage message, CancellationToken cancellationToken)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+
+        if (opt.Value.IsEnabled == false)
+        {
+            log.LogDebug("Command {Command} is not enabled, returning", this.GetType().Name);
+
+            return Task.CompletedTask;
+        }
+
+        try
+        {
+            throw new NotImplementedException("TODO!");
+
+            log.LogDebug("Command {Command} completed", this.GetType().Name);
+        }
+        catch (Exception ex)
+        {
+            log.LogDebug(ex, "Command {Command} failed with message: {Message}", this.GetType().Name, ex.Message);
+
+            throw new CommandException($$"Command {this.GetType().Name} failed, see inner exception for details", ex);
+        }
+
+        return Task.CompletedTask;
+    }
+}
+
+public class $CommandName$RequestBehavior<TRequest> : RequestBehaviorBase<TRequest, Unit> where TRequest : IRequest<Unit>
+{
+    public $CommandName$RequestBehavior($CommandName$Command<TRequest> cmd, PipelineContext ctx = null, ILogger log = null)
+        : base(cmd, ctx, log)
+    {
+    }
+}
+
+public class $CommandName$RequestBehavior<TRequest, TResponse> : RequestBehaviorBase<TRequest, TResponse> where TRequest : IRequest<TResponse>
+{
+    public $CommandName$RequestBehavior($CommandName$Command<TRequest> cmd, PipelineContext ctx = null, ILogger log = null) 
+        : base(cmd, ctx, log)
+    {
+    }
+}
+
+public class $CommandName$RequestProcessor<TRequest> : RequestProcessorBase<TRequest>
+{
+    public $CommandName$RequestProcessor($CommandName$Command<TRequest> cmd, PipelineContext ctx = null, ILogger log = null) : base(cmd, ctx, log)
+    {
+    }
+}
+
+public class $CommandName$ResponseBehavior<TRequest, TResponse> : ResponseBehaviorBase<TRequest, TResponse> where TRequest : IRequest<TResponse>
+{
+    public $CommandName$ResponseBehavior($CommandName$Command<TResponse> cmd, PipelineContext ctx = null, ILogger log = null) : base(cmd, ctx, log)
+    {
+    }
+}
+
+public class $CommandName$ResponseProcessor<TRequest, TResponse> : ResponseProcessorBase<TRequest, TResponse> where TRequest : IRequest<TResponse>
+{
+    public $CommandName$ResponseProcessor($CommandName$Command<TResponse> cmd, PipelineContext ctx = null, ILogger log = null) : base(cmd, ctx, log)
+    {
+    }
+}]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

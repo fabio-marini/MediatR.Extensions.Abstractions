@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Response Behavior</Title>
+      <Description>Generates the response behavior class for the specified command</Description>
+      <Author>Fabio Marini</Author>
+      <SnippetTypes>
+        <SnippetType>MediatR Extensions</SnippetType>
+      </SnippetTypes>
+      <Shortcut>resb</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>CommandName</ID>
+          <ToolTip>The name of the command class without the 'Command' suffix</ToolTip>
+          <Default>MyCommand</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp">
+        <![CDATA[
+public class $CommandName$ResponseBehavior<TRequest, TResponse> : ResponseBehaviorBase<TRequest, TResponse> where TRequest : IRequest<TResponse>
+{
+    public $CommandName$ResponseBehavior($CommandName$Command<TResponse> cmd, PipelineContext ctx = null, ILogger log = null) : base(cmd, ctx, log)
+    {
+    }
+}]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

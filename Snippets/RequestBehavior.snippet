@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Request Behavior</Title>
+      <Description>Generates the request behavior class for the specified command</Description>
+      <Author>Fabio Marini</Author>
+      <SnippetTypes>
+        <SnippetType>MediatR Extensions</SnippetType>
+      </SnippetTypes>
+      <Shortcut>reqb</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>CommandName</ID>
+          <ToolTip>The name of the command class without the 'Command' suffix</ToolTip>
+          <Default>MyCommand</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp">
+        <![CDATA[
+public class $CommandName$RequestBehavior<TRequest> : RequestBehaviorBase<TRequest, Unit> where TRequest : IRequest<Unit>
+{
+    public $CommandName$RequestBehavior($CommandName$Command<TRequest> cmd, PipelineContext ctx = null, ILogger log = null)
+        : base(cmd, ctx, log)
+    {
+    }
+}
+
+public class $CommandName$RequestBehavior<TRequest, TResponse> : RequestBehaviorBase<TRequest, TResponse> where TRequest : IRequest<TResponse>
+{
+    public $CommandName$RequestBehavior($CommandName$Command<TRequest> cmd, PipelineContext ctx = null, ILogger log = null) 
+        : base(cmd, ctx, log)
+    {
+    }
+}]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
