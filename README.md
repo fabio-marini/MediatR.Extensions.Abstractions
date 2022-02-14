@@ -1,22 +1,21 @@
 # MediatR.Extensions.Abstractions
 
-This repository contains abstractions that can be used to build [MediatR](https://github.com/jbogard/MediatR) extensions, i.e. pipeline behaviors and request pre/post processors:
+This repository contains abstractions that can be used to build [MediatR](https://github.com/jbogard/MediatR) extensions, i.e. pipeline behaviors and request pre/post processors. There are three steps to build an extension:
+1. create a generic command class by implementing [ICommand&lt;TMessage&gt;][0] (`TMessage` is a MediatR request or response, although this is not constrained)
+2. create a generic options class and inject it in the command constructor (at the very minimum it will contain an `IsEnabled` boolean property) 
+3. extend the following base classes by providing the required constructors:
+   - [RequestBehaviorBase][1]: implements `IPipelineBehavior<TRequest, TResponse>` and takes an `ICommand<TRequest>`
+   - [ResponseBehaviorBase][2]: implements `IPipelineBehavior<TRequest, TResponse>` and takes an `ICommand<TResponse>`
+   - [RequestProcessorBase][3]: implements `IRequestPreProcessor<TRequest>` and takes an `ICommand<TRequest>`
+   - [ResponseProcessorBase][4]: implements `IRequestPostProcessor<TRequest, TResponse>` and takes an `ICommand<TResponse>`
 
-- [RequestBehaviorBase][1]: implements `IPipelineBehavior<TRequest, TResponse>` and takes an `ICommand<TRequest>`
-- [ResponseBehaviorBase][2]: implements `IPipelineBehavior<TRequest, TResponse>` and takes an `ICommand<TResponse>`
-- [RequestProcessorBase][3]: implements `IRequestPreProcessor<TRequest>` and takes an `ICommand<TRequest>`
-- [ResponseProcessorBase][4]: implements `IRequestPostProcessor<TRequest, TResponse>` and takes an `ICommand<TResponse>`
-
-There are three steps to build an extension:
-1. create a generic command by implementing [ICommand&lt;TMessage&gt;][0] - `TMessage` is a MediatR request or response
-2. extend the base classes described above and provide constructors to inject the command created above
-3. if the command requires options, create an option class and inject it in the command constructor
-
-:warning: The abstractions are designed to allow execution of the pipeline to continue in case of certain errors. This means that:
+:warning: The base classes are designed to allow execution of the pipeline to continue in case of certain errors. This means that:
 - exceptions raised by execution of the generic command are caught and logged, but not rethrown
 - all other exceptions, i.e. those raised by cancellation and other components further down the chain, are not caught and will bubble up the stack
 
 Keep this in mind if your extension fails without an exception! The error details will be in the logs...
+
+To help with all the boilerplate code, there are some Visual Studio [code snippets](./Snippets). To import the snippets select **Tools -> Code Snippets Manager** (VS 2019).
 
 An example is included with the tests project:
 1. [WriteJsonCommand][5] implements ICommand&lt;TMessage&gt;
