@@ -17,21 +17,26 @@
           <ToolTip>The name of the command class without the 'Command' suffix</ToolTip>
           <Default>MyCommand</Default>
         </Literal>
+        <Literal Editable="true">
+          <ID>OptionsName</ID>
+          <ToolTip>The name of the options class without the 'Options' suffix</ToolTip>
+          <Default>MyOptions</Default>
+        </Literal>
       </Declarations>
       <Code Language="csharp">
         <![CDATA[
-public class $CommandName$Options<TMessage>
+public class $OptionsName$Options<TMessage>
 {
     public virtual bool IsEnabled { get; set; }
 }
 
 public class $CommandName$Command<TMessage> : ICommand<TMessage>
 {
-    private readonly IOptions<$CommandName$Options<TMessage>> opt;
+    private readonly IOptions<$OptionsName$Options<TMessage>> opt;
     private readonly PipelineContext ctx;
     private readonly ILogger log;
 
-    public $CommandName$Command(IOptions<$CommandName$Options<TMessage>> opt, PipelineContext ctx = null, ILogger log = null)
+    public $CommandName$Command(IOptions<$OptionsName$Options<TMessage>> opt, PipelineContext ctx = null, ILogger log = null)
     {
         this.opt = opt;
         this.ctx = ctx;
