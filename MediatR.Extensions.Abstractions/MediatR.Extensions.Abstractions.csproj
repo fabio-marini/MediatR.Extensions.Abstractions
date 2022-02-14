@@ -10,6 +10,30 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="Snippets\All.snippet">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Snippets\CommandOptions.snippet">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Snippets\ExtensionCommand.snippet">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Snippets\RequestBehavior.snippet">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Snippets\RequestProcessor.snippet">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Snippets\ResponseBehavior.snippet">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Snippets\ResponseProcessor.snippet">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.20" />
   </ItemGroup>

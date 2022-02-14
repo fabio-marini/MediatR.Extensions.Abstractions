@@ -12,17 +12,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{053437A4-C
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Snippets", "Snippets", "{B675F265-D600-48C2-AF5F-D788B486806E}"
-	ProjectSection(SolutionItems) = preProject
-		Snippets\All.snippet = Snippets\All.snippet
-		Snippets\CommandOptions.snippet = Snippets\CommandOptions.snippet
-		Snippets\ExtensionCommand.snippet = Snippets\ExtensionCommand.snippet
-		Snippets\RequestBehavior.snippet = Snippets\RequestBehavior.snippet
-		Snippets\RequestProcessor.snippet = Snippets\RequestProcessor.snippet
-		Snippets\ResponseBehavior.snippet = Snippets\ResponseBehavior.snippet
-		Snippets\ResponseProcessor.snippet = Snippets\ResponseProcessor.snippet
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

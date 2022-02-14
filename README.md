@@ -18,7 +18,7 @@ Keep this in mind if your extension fails without an exception! The error detail
 To help with all the boilerplate code, there are some Visual Studio [code snippets](./Snippets). To import the snippets select **Tools -> Code Snippets Manager** (VS 2019).
 
 An example is included with the tests project:
-1. [WriteJsonCommand][5] implements ICommand&lt;TMessage&gt;
+1. [WriteJsonCommand][5] implements `ICommand<TMessage>`
 2. [WriteJsonRequestBehavior][6], [WriteJsonResponseBehavior][7], [WriteJsonRequestProcessor][8] and [WriteJsonResponseProcessor][9] extend the base classes and provide constructors to inject [WriteJsonCommand][5]
 3. [WriteJsonOptions][10] are injected in the [WriteJsonCommand][5]
 
